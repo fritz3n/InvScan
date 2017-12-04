@@ -18,6 +18,8 @@ namespace InvScan
     {
         private string Code = "";
 
+        bool ctrlDown = false;
+        bool captureScan = false;
 
         public Form1()
         {
@@ -36,6 +38,8 @@ namespace InvScan
         {
             Code = CodeBox.Text;
             CodeLabel.Text = Code;
+            CodeBox.Text = "";
+
 
             if (CheckInBox.Checked)
             {
@@ -254,6 +258,65 @@ namespace InvScan
 
             UpdateExplorer();
 
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                ctrlDown = true;
+
+                Console.WriteLine("control");
+
+            }
+
+            if(ctrlDown && e.KeyCode == Keys.B)
+            {
+                captureScan = true;
+
+                Console.WriteLine("capturin");
+
+                CodeBox.Text = "";
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            
+
+            if (ctrlDown && e.KeyCode == Keys.C)
+            {
+                captureScan = false;
+
+                Console.WriteLine("not capturin");
+
+                HandleCode();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+            }
+            else if (captureScan & (e.KeyCode > Keys.D0 && e.KeyCode < Keys.D9))
+            {
+                KeysConverter kc = new KeysConverter();
+                string keyChar = kc.ConvertToString(e.KeyCode);
+
+                CodeBox.Text += keyChar;
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control)
+            {
+                ctrlDown = false;
+
+                Console.WriteLine("not control");
+
+            }
         }
     }
 }

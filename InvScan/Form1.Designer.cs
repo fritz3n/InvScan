@@ -38,42 +38,42 @@
             this.PlaceBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.CodeLabel = new System.Windows.Forms.Label();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.exploreView = new System.Windows.Forms.ListView();
             this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Place = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Available = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Code_Field = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.CodeBox = new System.Windows.Forms.TextBox();
-            this.CodeButt = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.CheckInBox = new System.Windows.Forms.CheckBox();
-            this.CheckOutBox = new System.Windows.Forms.CheckBox();
-            this.CheckInButt = new System.Windows.Forms.Button();
-            this.CheckOutButt = new System.Windows.Forms.Button();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.ExpNameBox = new System.Windows.Forms.TextBox();
             this.ExpPlaceBox = new System.Windows.Forms.TextBox();
             this.ExpDescBox = new System.Windows.Forms.TextBox();
-            this.DeleteButt = new System.Windows.Forms.Button();
             this.UpdateButt = new System.Windows.Forms.Button();
+            this.DeleteButt = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.CheckInButt = new System.Windows.Forms.Button();
+            this.CheckInBox = new System.Windows.Forms.CheckBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.CheckOutButt = new System.Windows.Forms.Button();
+            this.CheckOutBox = new System.Windows.Forms.CheckBox();
+            this.CodeLabel = new System.Windows.Forms.Label();
+            this.CodeBox = new System.Windows.Forms.TextBox();
+            this.CodeButt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -109,7 +109,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(406, 261);
+            this.tabPage1.Size = new System.Drawing.Size(449, 278);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add";
             // 
@@ -181,15 +181,6 @@
             this.label3.TabIndex = 3;
             this.label3.Text = "Name";
             // 
-            // CodeLabel
-            // 
-            this.CodeLabel.AutoSize = true;
-            this.CodeLabel.Location = new System.Drawing.Point(13, 36);
-            this.CodeLabel.Name = "CodeLabel";
-            this.CodeLabel.Size = new System.Drawing.Size(37, 13);
-            this.CodeLabel.TabIndex = 2;
-            this.CodeLabel.Text = "xxxxxx";
-            // 
             // NameBox
             // 
             this.NameBox.Location = new System.Drawing.Point(6, 19);
@@ -207,6 +198,24 @@
             this.tabPage2.Size = new System.Drawing.Size(449, 278);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Explore";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.exploreView);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
+            this.splitContainer1.Size = new System.Drawing.Size(449, 278);
+            this.splitContainer1.SplitterDistance = 158;
+            this.splitContainer1.TabIndex = 0;
             // 
             // exploreView
             // 
@@ -247,137 +256,6 @@
             // 
             this.Code_Field.Text = "Code";
             // 
-            // CodeBox
-            // 
-            this.CodeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.CodeBox.Location = new System.Drawing.Point(13, 13);
-            this.CodeBox.Name = "CodeBox";
-            this.CodeBox.Size = new System.Drawing.Size(400, 20);
-            this.CodeBox.TabIndex = 1;
-            this.CodeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CodeBox_KeyDown);
-            this.CodeBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CodeBox_KeyPress);
-            // 
-            // CodeButt
-            // 
-            this.CodeButt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CodeButt.Location = new System.Drawing.Point(419, 12);
-            this.CodeButt.Name = "CodeButt";
-            this.CodeButt.Size = new System.Drawing.Size(51, 21);
-            this.CodeButt.TabIndex = 2;
-            this.CodeButt.Text = "OK";
-            this.CodeButt.UseVisualStyleBackColor = true;
-            this.CodeButt.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.CheckInButt);
-            this.tabPage3.Controls.Add(this.CheckInBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(448, 278);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "CheckIn";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage4.Controls.Add(this.CheckOutButt);
-            this.tabPage4.Controls.Add(this.CheckOutBox);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(448, 278);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "CheckOut";
-            // 
-            // CheckInBox
-            // 
-            this.CheckInBox.AutoSize = true;
-            this.CheckInBox.Location = new System.Drawing.Point(6, 6);
-            this.CheckInBox.Name = "CheckInBox";
-            this.CheckInBox.Size = new System.Drawing.Size(91, 17);
-            this.CheckInBox.TabIndex = 0;
-            this.CheckInBox.Text = "Auto CheckIn";
-            this.CheckInBox.UseVisualStyleBackColor = true;
-            // 
-            // CheckOutBox
-            // 
-            this.CheckOutBox.AutoSize = true;
-            this.CheckOutBox.Location = new System.Drawing.Point(6, 6);
-            this.CheckOutBox.Name = "CheckOutBox";
-            this.CheckOutBox.Size = new System.Drawing.Size(99, 17);
-            this.CheckOutBox.TabIndex = 0;
-            this.CheckOutBox.Text = "Auto CheckOut";
-            this.CheckOutBox.UseVisualStyleBackColor = true;
-            // 
-            // CheckInButt
-            // 
-            this.CheckInButt.Location = new System.Drawing.Point(103, 2);
-            this.CheckInButt.Name = "CheckInButt";
-            this.CheckInButt.Size = new System.Drawing.Size(75, 23);
-            this.CheckInButt.TabIndex = 1;
-            this.CheckInButt.Text = "Check In";
-            this.CheckInButt.UseVisualStyleBackColor = true;
-            this.CheckInButt.Click += new System.EventHandler(this.CheckInButt_Click);
-            // 
-            // CheckOutButt
-            // 
-            this.CheckOutButt.Location = new System.Drawing.Point(111, 2);
-            this.CheckOutButt.Name = "CheckOutButt";
-            this.CheckOutButt.Size = new System.Drawing.Size(75, 23);
-            this.CheckOutButt.TabIndex = 1;
-            this.CheckOutButt.Text = "Check Out";
-            this.CheckOutButt.UseVisualStyleBackColor = true;
-            this.CheckOutButt.Click += new System.EventHandler(this.CheckOutButt_Click);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.exploreView);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(449, 278);
-            this.splitContainer1.SplitterDistance = 158;
-            this.splitContainer1.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Name:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 55);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(37, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Place:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(113, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Description:";
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -404,6 +282,33 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(443, 110);
             this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(113, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(63, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Description:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 55);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(37, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Place:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Name:";
             // 
             // ExpNameBox
             // 
@@ -435,16 +340,6 @@
             this.ExpDescBox.Size = new System.Drawing.Size(215, 89);
             this.ExpDescBox.TabIndex = 9;
             // 
-            // DeleteButt
-            // 
-            this.DeleteButt.Location = new System.Drawing.Point(334, 18);
-            this.DeleteButt.Name = "DeleteButt";
-            this.DeleteButt.Size = new System.Drawing.Size(75, 23);
-            this.DeleteButt.TabIndex = 0;
-            this.DeleteButt.Text = "Delete";
-            this.DeleteButt.UseVisualStyleBackColor = true;
-            this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
-            // 
             // UpdateButt
             // 
             this.UpdateButt.Location = new System.Drawing.Point(334, 73);
@@ -455,6 +350,111 @@
             this.UpdateButt.UseVisualStyleBackColor = true;
             this.UpdateButt.Click += new System.EventHandler(this.UpdateButt_Click);
             // 
+            // DeleteButt
+            // 
+            this.DeleteButt.Location = new System.Drawing.Point(334, 18);
+            this.DeleteButt.Name = "DeleteButt";
+            this.DeleteButt.Size = new System.Drawing.Size(75, 23);
+            this.DeleteButt.TabIndex = 0;
+            this.DeleteButt.Text = "Delete";
+            this.DeleteButt.UseVisualStyleBackColor = true;
+            this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.CheckInButt);
+            this.tabPage3.Controls.Add(this.CheckInBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(449, 278);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "CheckIn";
+            // 
+            // CheckInButt
+            // 
+            this.CheckInButt.Location = new System.Drawing.Point(103, 2);
+            this.CheckInButt.Name = "CheckInButt";
+            this.CheckInButt.Size = new System.Drawing.Size(75, 23);
+            this.CheckInButt.TabIndex = 1;
+            this.CheckInButt.Text = "Check In";
+            this.CheckInButt.UseVisualStyleBackColor = true;
+            this.CheckInButt.Click += new System.EventHandler(this.CheckInButt_Click);
+            // 
+            // CheckInBox
+            // 
+            this.CheckInBox.AutoSize = true;
+            this.CheckInBox.Location = new System.Drawing.Point(6, 6);
+            this.CheckInBox.Name = "CheckInBox";
+            this.CheckInBox.Size = new System.Drawing.Size(91, 17);
+            this.CheckInBox.TabIndex = 0;
+            this.CheckInBox.Text = "Auto CheckIn";
+            this.CheckInBox.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.CheckOutButt);
+            this.tabPage4.Controls.Add(this.CheckOutBox);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(449, 278);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "CheckOut";
+            // 
+            // CheckOutButt
+            // 
+            this.CheckOutButt.Location = new System.Drawing.Point(111, 2);
+            this.CheckOutButt.Name = "CheckOutButt";
+            this.CheckOutButt.Size = new System.Drawing.Size(75, 23);
+            this.CheckOutButt.TabIndex = 1;
+            this.CheckOutButt.Text = "Check Out";
+            this.CheckOutButt.UseVisualStyleBackColor = true;
+            this.CheckOutButt.Click += new System.EventHandler(this.CheckOutButt_Click);
+            // 
+            // CheckOutBox
+            // 
+            this.CheckOutBox.AutoSize = true;
+            this.CheckOutBox.Location = new System.Drawing.Point(6, 6);
+            this.CheckOutBox.Name = "CheckOutBox";
+            this.CheckOutBox.Size = new System.Drawing.Size(99, 17);
+            this.CheckOutBox.TabIndex = 0;
+            this.CheckOutBox.Text = "Auto CheckOut";
+            this.CheckOutBox.UseVisualStyleBackColor = true;
+            // 
+            // CodeLabel
+            // 
+            this.CodeLabel.AutoSize = true;
+            this.CodeLabel.Location = new System.Drawing.Point(13, 36);
+            this.CodeLabel.Name = "CodeLabel";
+            this.CodeLabel.Size = new System.Drawing.Size(37, 13);
+            this.CodeLabel.TabIndex = 2;
+            this.CodeLabel.Text = "xxxxxx";
+            // 
+            // CodeBox
+            // 
+            this.CodeBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.CodeBox.Location = new System.Drawing.Point(13, 13);
+            this.CodeBox.Name = "CodeBox";
+            this.CodeBox.Size = new System.Drawing.Size(400, 20);
+            this.CodeBox.TabIndex = 1;
+            this.CodeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CodeBox_KeyDown);
+            this.CodeBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CodeBox_KeyPress);
+            // 
+            // CodeButt
+            // 
+            this.CodeButt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CodeButt.Location = new System.Drawing.Point(419, 12);
+            this.CodeButt.Name = "CodeButt";
+            this.CodeButt.Size = new System.Drawing.Size(51, 21);
+            this.CodeButt.TabIndex = 2;
+            this.CodeButt.Text = "OK";
+            this.CodeButt.UseVisualStyleBackColor = true;
+            this.CodeButt.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -464,23 +464,26 @@
             this.Controls.Add(this.CodeBox);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.CodeLabel);
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(347, 259);
             this.Name = "Form1";
             this.Text = "Inventory";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
