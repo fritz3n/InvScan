@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace InvScan
@@ -20,6 +21,7 @@ namespace InvScan
 
         bool ctrlDown = false;
         bool captureScan = false;
+        bool HideAvailable = false;
 
         public Form1()
         {
@@ -62,6 +64,9 @@ namespace InvScan
                     DbWrap.Update(itm);
                 }
             }
+
+            UpdateExplorer();
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -75,7 +80,8 @@ namespace InvScan
                 Name = NameBox.Text,
                 Place = PlaceBox.Text,
                 Description = DescBox.Text,
-                Code = Code
+                Code = Code,
+                Available = true
             };
 
             DbWrap.Insert(itm);
@@ -107,11 +113,11 @@ namespace InvScan
                     break;
 
                 case "CheckIn":
-                    CheckInBox.Checked = true;
+                    //CheckInBox.Checked = true;
                     break;
 
                 case "CheckOut":
-                    CheckOutBox.Checked = true;
+                    //CheckOutBox.Checked = true;
                     break;
             }
 
@@ -127,11 +133,11 @@ namespace InvScan
             switch (name)
             {
                 case "CheckIn":
-                    CheckInBox.Checked = false;
+                    //CheckInBox.Checked = false;
                     break;
 
                 case "CheckOut":
-                    CheckOutBox.Checked = false;
+                    //CheckOutBox.Checked = false;
                     break;
             }
         }
@@ -144,16 +150,25 @@ namespace InvScan
 
             foreach(Item itm in list)
             {
-                string Available = (itm.Available ? "Yes" : "No");
 
-                string[] row = {itm.Name, itm.Name, Available, itm.Code};
-                var listViewItem = new ListViewItem(row);
+                if (!(HideAvailable && itm.Available))
+                {
 
-                listViewItem.Tag = itm;
-                listViewItem.ToolTipText = itm.Description;
+                    string Available = (itm.Available ? "Yes" : "No");
 
+                    string[] row = { itm.Name, itm.Name, Available, itm.Code };
+                    var listViewItem = new ListViewItem(row);
 
-                exploreView.Items.Add(listViewItem);
+                    listViewItem.Tag = itm;
+                    listViewItem.ToolTipText = itm.Description;
+
+                    if (!itm.Available)
+                    {
+                        listViewItem.BackColor = Color.LightPink;
+                    }
+
+                    exploreView.Items.Add(listViewItem);
+                }
             }
         }
 
@@ -232,6 +247,7 @@ namespace InvScan
             }
         }
         
+
 
         private void DeleteButt_Click(object sender, EventArgs e)
         {
@@ -316,6 +332,124 @@ namespace InvScan
 
                 Console.WriteLine("not control");
 
+            }
+        }
+
+        private void exploreView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            if(e.Column == 2)
+            {
+                HideAvailable = !HideAvailable;
+                
+                if (HideAvailable)
+                {
+                    //exploreView
+
+                    foreach (ListViewItem listItem in exploreView.Items)
+                    {
+                        if (((Item)listItem.Tag).Available)
+                        {
+                            listItem.Remove();
+                        }
+                    }
+                }
+                else
+                {
+                    UpdateExplorer();
+                }
+            }
+        }
+
+        private void CheckInBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckInBox.Checked)
+            {
+                CheckOutBox.Checked = false;
+
+                behaviorLabel.ForeColor = Color.Red;
+
+                behaviorLabel.Text = "Auto CheckIn";
+
+            }
+            else
+            {
+                behaviorLabel.ForeColor = Color.Black;
+
+                behaviorLabel.Text = "Default";
+            }
+
+        }
+
+        private void CheckOutBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckOutBox.Checked)
+            {
+                CheckInBox.Checked = false;
+
+                behaviorLabel.ForeColor = Color.Red;
+
+                behaviorLabel.Text = "Auto CheckOut";
+
+            }
+            else
+            {
+                behaviorLabel.ForeColor = Color.Black;
+
+                behaviorLabel.Text = "Default";
+            }
+        }
+
+        private void behaviorLabel_Click(object sender, EventArgs e)
+        {
+            CheckInBox.Checked = false;
+            CheckOutBox.Checked = false;
+        }
+
+        public ListViewItem SearchInBox(string text)
+        {
+            string[] words = text.Split(' ');
+
+            string regex = "";
+
+            foreach (string s in words)
+            {
+                if (s != "")
+                {
+                    regex += Regex.Escape(s.ToLower()) + ".*?";
+                }
+            }
+
+
+            Console.WriteLine(regex);
+
+            foreach (ListViewItem Item in exploreView.Items)
+            {
+                //Console.WriteLine(Item.SubItems[0].Text);
+                if (Regex.IsMatch(Item.SubItems[0].Text.ToLower(), regex))
+                {
+                    Console.WriteLine(Item.SubItems[0].Text);
+                    return Item;
+
+                }
+            }
+
+
+            return null;
+        }
+
+        private void searchBox_TextChanged(object sender, EventArgs e)
+        {
+            ListViewItem foundItem = SearchInBox(searchBox.Text);
+            if (foundItem != null)
+            {
+                exploreView.TopItem = foundItem;
+
+                foreach (ListViewItem listItem in exploreView.Items)
+                {
+                    listItem.Selected = false;
+                }
+                
+                foundItem.Selected = true;
             }
         }
     }

@@ -64,6 +64,8 @@
             this.CodeLabel = new System.Windows.Forms.Label();
             this.CodeBox = new System.Windows.Forms.TextBox();
             this.CodeButt = new System.Windows.Forms.Button();
+            this.behaviorLabel = new System.Windows.Forms.Label();
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -208,6 +210,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.searchBox);
             this.splitContainer1.Panel1.Controls.Add(this.exploreView);
             // 
             // splitContainer1.Panel2
@@ -220,21 +223,25 @@
             // exploreView
             // 
             this.exploreView.AllowColumnReorder = true;
+            this.exploreView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.exploreView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.name,
             this.Place,
             this.Available,
             this.Code_Field});
-            this.exploreView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.exploreView.FullRowSelect = true;
             this.exploreView.HideSelection = false;
             this.exploreView.Location = new System.Drawing.Point(0, 0);
             this.exploreView.Name = "exploreView";
             this.exploreView.ShowItemToolTips = true;
-            this.exploreView.Size = new System.Drawing.Size(449, 158);
+            this.exploreView.Size = new System.Drawing.Size(446, 129);
+            this.exploreView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.exploreView.TabIndex = 0;
             this.exploreView.UseCompatibleStateImageBehavior = false;
             this.exploreView.View = System.Windows.Forms.View.Details;
+            this.exploreView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.exploreView_ColumnClick);
             this.exploreView.SelectedIndexChanged += new System.EventHandler(this.exploreView_SelectedIndexChanged);
             // 
             // name
@@ -391,6 +398,7 @@
             this.CheckInBox.TabIndex = 0;
             this.CheckInBox.Text = "Auto CheckIn";
             this.CheckInBox.UseVisualStyleBackColor = true;
+            this.CheckInBox.CheckedChanged += new System.EventHandler(this.CheckInBox_CheckedChanged);
             // 
             // tabPage4
             // 
@@ -423,6 +431,7 @@
             this.CheckOutBox.TabIndex = 0;
             this.CheckOutBox.Text = "Auto CheckOut";
             this.CheckOutBox.UseVisualStyleBackColor = true;
+            this.CheckOutBox.CheckedChanged += new System.EventHandler(this.CheckOutBox_CheckedChanged);
             // 
             // CodeLabel
             // 
@@ -455,11 +464,33 @@
             this.CodeButt.UseVisualStyleBackColor = true;
             this.CodeButt.Click += new System.EventHandler(this.button1_Click);
             // 
+            // behaviorLabel
+            // 
+            this.behaviorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.behaviorLabel.Location = new System.Drawing.Point(370, 36);
+            this.behaviorLabel.Name = "behaviorLabel";
+            this.behaviorLabel.Size = new System.Drawing.Size(100, 13);
+            this.behaviorLabel.TabIndex = 3;
+            this.behaviorLabel.Text = "default";
+            this.behaviorLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.behaviorLabel.Click += new System.EventHandler(this.behaviorLabel_Click);
+            // 
+            // searchBox
+            // 
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.searchBox.Location = new System.Drawing.Point(0, 135);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(446, 20);
+            this.searchBox.TabIndex = 1;
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(482, 366);
+            this.Controls.Add(this.behaviorLabel);
             this.Controls.Add(this.CodeButt);
             this.Controls.Add(this.CodeBox);
             this.Controls.Add(this.tabControl1);
@@ -475,6 +506,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -527,6 +559,8 @@
         private System.Windows.Forms.TextBox ExpDescBox;
         private System.Windows.Forms.Button UpdateButt;
         private System.Windows.Forms.Button DeleteButt;
+        private System.Windows.Forms.Label behaviorLabel;
+        private System.Windows.Forms.TextBox searchBox;
     }
 }
 
