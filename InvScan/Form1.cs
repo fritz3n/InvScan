@@ -9,14 +9,19 @@ using System.Media;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
+
 
 namespace InvScan
 {
 
-
+    
 
     public partial class Form1 : Form
     {
+        private BrightIdeasSoftware.TreeListView treeListView;
+        private List<Item> data;
+
         private string Code = "";
 
         bool ctrlDown = false;
@@ -27,8 +32,100 @@ namespace InvScan
         {
             InitializeComponent();
 
-            
+            initExplore();
 
+        }
+
+        private void initExplore()
+        {
+
+            treeListView = new BrightIdeasSoftware.TreeListView();
+            treeListView.Dock = DockStyle.Fill;
+
+            //tabControl1.TabPages[4].Controls.Add(treeListView);
+
+            splitContainer1.Panel1.Controls.Add(treeListView);
+
+            //tabpage5 Controls.Add(treeListView);
+
+            // set the delegate that the tree uses to know if a node is expandable
+            this.treeListView.CanExpandGetter = x => (x as Item).Children.Count > 0;
+            // set the delegate that the tree uses to know the children of a node
+            this.treeListView.ChildrenGetter = x => (x as Item).Children;
+
+            // create the tree columns and set the delegates to print the desired object proerty
+            var nameCol = new OLVColumn("Name", "Name");
+            nameCol.AspectGetter = x => (x as Item).Name;
+
+            var col1 = new OLVColumn("Place", "Place");
+            col1.AspectGetter = x => (x as Item).Place;
+
+            var col2 = new OLVColumn("Available", "Available");
+            col2.AspectGetter = x => (x as Item).Available;
+
+            var col3 = new OLVColumn("Code", "Code");
+            col3.AspectGetter = x => (x as Item).Code;
+
+            // add the columns to the tree
+            this.treeListView.Columns.Add(nameCol);
+            this.treeListView.Columns.Add(col1);
+            this.treeListView.Columns.Add(col2);
+            this.treeListView.Columns.Add(col3);
+
+            // set the tree roots
+            this.treeListView.Roots = data;
+
+            treeListView.SelectedIndexChanged += TreeListView_SelectedIndexChanged;
+
+            treeListView.FullRowSelect = true;
+            treeListView.HideSelection = false;
+
+            UpdateExplorer();
+        }
+
+        private void TreeListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (treeListView.SelectedObjects.Count == 1)
+            {
+                Item itm = (Item)treeListView.SelectedObjects[0];
+
+                ExpNameBox.Text = itm.Name;
+                ExpPlaceBox.Text = itm.Place;
+                ExpDescBox.Text = itm.Description;
+
+                DeleteButt.Enabled = true;
+                UpdateButt.Enabled = true;
+
+            }
+            else
+            {
+                UpdateButt.Enabled = false;
+
+                if (treeListView.SelectedObjects.Count > 1)
+                {
+                    DeleteButt.Enabled = true;
+                }
+                else
+                {
+                    DeleteButt.Enabled = false;
+                }
+
+                ExpNameBox.Text = "";
+                ExpPlaceBox.Text = "";
+                ExpDescBox.Text = "";
+            }
+
+        }
+
+        private void TreeListView_CellClick(object sender, CellClickEventArgs e)
+        {
+            if (e.Item != null)
+            {
+                Item itm = (Item)e.Item.RowObject;
+
+                treeListView.Refresh();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +135,7 @@ namespace InvScan
 
         private void HandleCode()
         {
-            Code = CodeBox.Text;
+            Code = CodeBox.Text.ToUpper();
             CodeLabel.Text = Code;
             CodeBox.Text = "";
 
@@ -76,27 +173,38 @@ namespace InvScan
 
         private void AddButt_Click(object sender, EventArgs e)
         {
-            Item itm = new Item {
+            
+            Item itm = new Item()
+            {
                 Name = NameBox.Text,
                 Place = PlaceBox.Text,
                 Description = DescBox.Text,
                 Code = Code,
                 Available = true
             };
-
-            DbWrap.Insert(itm);
-
+            
+            if (ParentBox.Text != "")
+            {
+                List<Item> list = DbWrap.GetList(ParentBox.Text);
+                if (list.Count > 0)
+                {
+                    list[0].AddChild(itm);
+                    DbWrap.Update(list[0]);
+                }
+                else
+                {
+                    DbWrap.Insert(itm);
+                }
+            }
+            else
+            {
+                DbWrap.Insert(itm);
+            }
 
             NameBox.Text = "";
             PlaceBox.Text = "";
             DescBox.Text = "";
-
             
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            DbWrap.Debug();
         }
 
         private void tabControl1_Selected(object sender, TabControlEventArgs e)
@@ -144,40 +252,21 @@ namespace InvScan
 
         private void UpdateExplorer()
         {
-            exploreView.Items.Clear();
-
+           
             List<Item> list = DbWrap.GetList();
 
-            foreach(Item itm in list)
-            {
+            data = list;
 
-                if (!(HideAvailable && itm.Available))
-                {
+            this.treeListView.Roots = data;
 
-                    string Available = (itm.Available ? "Yes" : "No");
+            treeListView.Refresh();
 
-                    string[] row = { itm.Name, itm.Name, Available, itm.Code };
-                    var listViewItem = new ListViewItem(row);
 
-                    listViewItem.Tag = itm;
-                    listViewItem.ToolTipText = itm.Description;
-
-                    if (!itm.Available)
-                    {
-                        listViewItem.BackColor = Color.LightPink;
-                    }
-
-                    exploreView.Items.Add(listViewItem);
-                }
-            }
         }
 
         private void CodeBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
+            
         }
 
         private void CodeBox_KeyDown(object sender, KeyEventArgs e)
@@ -216,45 +305,15 @@ namespace InvScan
 
         private void exploreView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(exploreView.SelectedItems.Count == 1)
-            {
-                Item itm = (Item)exploreView.SelectedItems[0].Tag;
-
-                ExpNameBox.Text = itm.Name;
-                ExpPlaceBox.Text = itm.Place;
-                ExpDescBox.Text = itm.Description;
-
-                DeleteButt.Enabled = true;
-                UpdateButt.Enabled = true;
-
-            }
-            else
-            {
-                UpdateButt.Enabled = false;
-
-                if(exploreView.SelectedItems.Count > 1)
-                {
-                    DeleteButt.Enabled = true;
-                }
-                else
-                {
-                    DeleteButt.Enabled = false;
-                }
-                
-                ExpNameBox.Text = "";
-                ExpPlaceBox.Text = "";
-                ExpDescBox.Text = "";
-            }
+            
         }
         
 
 
         private void DeleteButt_Click(object sender, EventArgs e)
         {
-            foreach(ListViewItem listItem in exploreView.SelectedItems)
+            foreach(Item itm in treeListView.SelectedObjects)
             {
-                Item itm = (Item)listItem.Tag;
-
                 DbWrap.Delete(itm);
             }
 
@@ -264,7 +323,7 @@ namespace InvScan
 
         private void UpdateButt_Click(object sender, EventArgs e)
         {
-            Item itm = (Item)exploreView.SelectedItems[0].Tag;
+            Item itm = (Item)treeListView.SelectedObjects[0];
 
             itm.Name = ExpNameBox.Text;
             itm.Place = ExpPlaceBox.Text;
@@ -311,52 +370,18 @@ namespace InvScan
                 e.SuppressKeyPress = true;
 
             }
-            else if (captureScan & (e.KeyCode > Keys.D0 && e.KeyCode < Keys.D9))
-            {
-                KeysConverter kc = new KeysConverter();
-                string keyChar = kc.ConvertToString(e.KeyCode);
-
-                CodeBox.Text += keyChar;
-
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
 
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Control)
+            
+            if (e.KeyCode == Keys.ControlKey)
             {
-                ctrlDown = false;
-
                 Console.WriteLine("not control");
 
-            }
-        }
+                ctrlDown = false;
 
-        private void exploreView_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            if(e.Column == 2)
-            {
-                HideAvailable = !HideAvailable;
-                
-                if (HideAvailable)
-                {
-                    //exploreView
-
-                    foreach (ListViewItem listItem in exploreView.Items)
-                    {
-                        if (((Item)listItem.Tag).Available)
-                        {
-                            listItem.Remove();
-                        }
-                    }
-                }
-                else
-                {
-                    UpdateExplorer();
-                }
             }
         }
 
@@ -422,8 +447,9 @@ namespace InvScan
 
             Console.WriteLine(regex);
 
-            foreach (ListViewItem Item in exploreView.Items)
+            for(int i = 0; i < treeListView.GetItemCount();i++)
             {
+                ListViewItem Item = treeListView.GetItem(i);
                 //Console.WriteLine(Item.SubItems[0].Text);
                 if (Regex.IsMatch(Item.SubItems[0].Text.ToLower(), regex))
                 {
@@ -442,15 +468,33 @@ namespace InvScan
             ListViewItem foundItem = SearchInBox(searchBox.Text);
             if (foundItem != null)
             {
-                exploreView.TopItem = foundItem;
+                treeListView.TopItem = foundItem;
 
-                foreach (ListViewItem listItem in exploreView.Items)
+                for (int i = 0; i < treeListView.GetItemCount(); i++)
                 {
-                    listItem.Selected = false;
+                    ListViewItem Item = treeListView.GetItem(i);
+                    Item.Selected = false;
                 }
-                
-                foundItem.Selected = true;
+
+                    foundItem.Selected = true;
             }
+        }
+
+        private void Form1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (captureScan && !ctrlDown)
+            {
+                
+
+                CodeBox.Text += e.KeyChar.ToString().ToUpper();
+
+                e.Handled = true;
+            }
+        }
+
+        private void ParentPasteButt_Click(object sender, EventArgs e)
+        {
+            ParentBox.Text = Code;
         }
     }
 }

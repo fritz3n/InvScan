@@ -60,20 +60,59 @@ namespace InvScan
             }
         }
 
-        public static void Update(Item itm)
+        public static Item GetItem(string Unique)
         {
             using (var db = new LiteDatabase(@"db.db"))
             {
 
                 LiteCollection<Item> inv = db.GetCollection<Item>("items");
+                List<Item> list = inv.Find(Query.EQ("Unique", Unique)).ToList();
 
+                if(list.Count > 0)
+                {
+                    return list[0];
+                }
+                else
+                {
+                    return null;
+                }
+                
+            }
+        }
+
+        public static void Update(Item itm)
+        {
+            if (itm.IsChild)
+            {
+                Item Parent = GetItem(itm.Parent);
+                Parent.AddChild(itm);
+
+                Update(Parent);
+            }
+        
+
+            using (var db = new LiteDatabase(@"db.db"))
+            {
+
+                LiteCollection<Item> inv = db.GetCollection<Item>("items");
+                
                 inv.Update(itm);
 
             }
+            
         } 
 
         public static void Delete(Item itm)
         {
+
+            if (itm.IsChild)
+            {
+                Item Parent = GetItem(itm.Parent);
+                Parent.RemoveChild(itm);
+
+                Update(Parent);
+            }
+
             using (var db = new LiteDatabase(@"db.db"))
             {
 

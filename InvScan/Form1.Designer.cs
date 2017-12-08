@@ -41,11 +41,7 @@
             this.NameBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.exploreView = new System.Windows.Forms.ListView();
-            this.name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Place = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Available = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Code_Field = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -65,12 +61,11 @@
             this.CodeBox = new System.Windows.Forms.TextBox();
             this.CodeButt = new System.Windows.Forms.Button();
             this.behaviorLabel = new System.Windows.Forms.Label();
-            this.searchBox = new System.Windows.Forms.TextBox();
+            this.ParentPasteButt = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -90,7 +85,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(457, 304);
+            this.tabControl1.Size = new System.Drawing.Size(501, 381);
             this.tabControl1.TabIndex = 0;
             this.tabControl1.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Selected);
             this.tabControl1.Deselected += new System.Windows.Forms.TabControlEventHandler(this.tabControl1_Deselected);
@@ -99,6 +94,7 @@
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tabPage1.Controls.Add(this.ParentPasteButt);
             this.tabPage1.Controls.Add(this.AddButt);
             this.tabPage1.Controls.Add(this.ParentBox);
             this.tabPage1.Controls.Add(this.label5);
@@ -111,7 +107,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(449, 278);
+            this.tabPage1.Size = new System.Drawing.Size(493, 355);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add";
             // 
@@ -197,7 +193,7 @@
             this.tabPage2.Controls.Add(this.splitContainer1);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(449, 278);
+            this.tabPage2.Size = new System.Drawing.Size(493, 355);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Explore";
             // 
@@ -208,92 +204,59 @@
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.searchBox);
-            this.splitContainer1.Panel1.Controls.Add(this.exploreView);
-            // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tableLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(449, 278);
-            this.splitContainer1.SplitterDistance = 158;
+            this.splitContainer1.Size = new System.Drawing.Size(493, 355);
+            this.splitContainer1.SplitterDistance = 201;
             this.splitContainer1.TabIndex = 0;
             // 
-            // exploreView
+            // searchBox
             // 
-            this.exploreView.AllowColumnReorder = true;
-            this.exploreView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.exploreView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.name,
-            this.Place,
-            this.Available,
-            this.Code_Field});
-            this.exploreView.FullRowSelect = true;
-            this.exploreView.HideSelection = false;
-            this.exploreView.Location = new System.Drawing.Point(0, 0);
-            this.exploreView.Name = "exploreView";
-            this.exploreView.ShowItemToolTips = true;
-            this.exploreView.Size = new System.Drawing.Size(446, 129);
-            this.exploreView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.exploreView.TabIndex = 0;
-            this.exploreView.UseCompatibleStateImageBehavior = false;
-            this.exploreView.View = System.Windows.Forms.View.Details;
-            this.exploreView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.exploreView_ColumnClick);
-            this.exploreView.SelectedIndexChanged += new System.EventHandler(this.exploreView_SelectedIndexChanged);
-            // 
-            // name
-            // 
-            this.name.Text = "Name";
-            this.name.Width = 133;
-            // 
-            // Place
-            // 
-            this.Place.Text = "Place";
-            this.Place.Width = 135;
-            // 
-            // Available
-            // 
-            this.Available.Text = "Available";
-            this.Available.Width = 113;
-            // 
-            // Code_Field
-            // 
-            this.Code_Field.Text = "Code";
+            this.tableLayoutPanel1.SetColumnSpan(this.searchBox, 3);
+            this.searchBox.Location = new System.Drawing.Point(3, 3);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(481, 20);
+            this.searchBox.TabIndex = 1;
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ExpNameBox, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.ExpPlaceBox, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.ExpDescBox, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.UpdateButt, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.DeleteButt, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ExpNameBox, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ExpPlaceBox, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.ExpDescBox, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.UpdateButt, 2, 4);
+            this.tableLayoutPanel1.Controls.Add(this.DeleteButt, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.searchBox, 0, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 4;
+            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(443, 110);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(487, 144);
             this.tableLayoutPanel1.TabIndex = 5;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(113, 0);
+            this.label7.Location = new System.Drawing.Point(124, 25);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(63, 13);
             this.label7.TabIndex = 4;
@@ -302,7 +265,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 55);
+            this.label6.Location = new System.Drawing.Point(3, 84);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(37, 13);
             this.label6.TabIndex = 2;
@@ -311,7 +274,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
@@ -321,18 +284,18 @@
             // 
             this.ExpNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExpNameBox.Location = new System.Drawing.Point(3, 18);
+            this.ExpNameBox.Location = new System.Drawing.Point(3, 43);
             this.ExpNameBox.Name = "ExpNameBox";
-            this.ExpNameBox.Size = new System.Drawing.Size(104, 20);
+            this.ExpNameBox.Size = new System.Drawing.Size(115, 20);
             this.ExpNameBox.TabIndex = 7;
             // 
             // ExpPlaceBox
             // 
             this.ExpPlaceBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExpPlaceBox.Location = new System.Drawing.Point(3, 73);
+            this.ExpPlaceBox.Location = new System.Drawing.Point(3, 102);
             this.ExpPlaceBox.Name = "ExpPlaceBox";
-            this.ExpPlaceBox.Size = new System.Drawing.Size(104, 20);
+            this.ExpPlaceBox.Size = new System.Drawing.Size(115, 20);
             this.ExpPlaceBox.TabIndex = 8;
             // 
             // ExpDescBox
@@ -340,16 +303,16 @@
             this.ExpDescBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ExpDescBox.Location = new System.Drawing.Point(113, 18);
+            this.ExpDescBox.Location = new System.Drawing.Point(124, 43);
             this.ExpDescBox.Multiline = true;
             this.ExpDescBox.Name = "ExpDescBox";
             this.tableLayoutPanel1.SetRowSpan(this.ExpDescBox, 3);
-            this.ExpDescBox.Size = new System.Drawing.Size(215, 89);
+            this.ExpDescBox.Size = new System.Drawing.Size(237, 98);
             this.ExpDescBox.TabIndex = 9;
             // 
             // UpdateButt
             // 
-            this.UpdateButt.Location = new System.Drawing.Point(334, 73);
+            this.UpdateButt.Location = new System.Drawing.Point(367, 102);
             this.UpdateButt.Name = "UpdateButt";
             this.UpdateButt.Size = new System.Drawing.Size(75, 23);
             this.UpdateButt.TabIndex = 1;
@@ -359,7 +322,7 @@
             // 
             // DeleteButt
             // 
-            this.DeleteButt.Location = new System.Drawing.Point(334, 18);
+            this.DeleteButt.Location = new System.Drawing.Point(367, 43);
             this.DeleteButt.Name = "DeleteButt";
             this.DeleteButt.Size = new System.Drawing.Size(75, 23);
             this.DeleteButt.TabIndex = 0;
@@ -448,7 +411,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CodeBox.Location = new System.Drawing.Point(13, 13);
             this.CodeBox.Name = "CodeBox";
-            this.CodeBox.Size = new System.Drawing.Size(400, 20);
+            this.CodeBox.Size = new System.Drawing.Size(444, 20);
             this.CodeBox.TabIndex = 1;
             this.CodeBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CodeBox_KeyDown);
             this.CodeBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CodeBox_KeyPress);
@@ -456,7 +419,7 @@
             // CodeButt
             // 
             this.CodeButt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CodeButt.Location = new System.Drawing.Point(419, 12);
+            this.CodeButt.Location = new System.Drawing.Point(463, 12);
             this.CodeButt.Name = "CodeButt";
             this.CodeButt.Size = new System.Drawing.Size(51, 21);
             this.CodeButt.TabIndex = 2;
@@ -467,7 +430,7 @@
             // behaviorLabel
             // 
             this.behaviorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.behaviorLabel.Location = new System.Drawing.Point(370, 36);
+            this.behaviorLabel.Location = new System.Drawing.Point(414, 36);
             this.behaviorLabel.Name = "behaviorLabel";
             this.behaviorLabel.Size = new System.Drawing.Size(100, 13);
             this.behaviorLabel.TabIndex = 3;
@@ -475,21 +438,21 @@
             this.behaviorLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.behaviorLabel.Click += new System.EventHandler(this.behaviorLabel_Click);
             // 
-            // searchBox
+            // ParentPasteButt
             // 
-            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.searchBox.Location = new System.Drawing.Point(0, 135);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(446, 20);
-            this.searchBox.TabIndex = 1;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
+            this.ParentPasteButt.Location = new System.Drawing.Point(7, 128);
+            this.ParentPasteButt.Name = "ParentPasteButt";
+            this.ParentPasteButt.Size = new System.Drawing.Size(99, 23);
+            this.ParentPasteButt.TabIndex = 11;
+            this.ParentPasteButt.Text = "Paste from Code";
+            this.ParentPasteButt.UseVisualStyleBackColor = true;
+            this.ParentPasteButt.Click += new System.EventHandler(this.ParentPasteButt_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(482, 366);
+            this.ClientSize = new System.Drawing.Size(526, 443);
             this.Controls.Add(this.behaviorLabel);
             this.Controls.Add(this.CodeButt);
             this.Controls.Add(this.CodeBox);
@@ -500,13 +463,12 @@
             this.Name = "Form1";
             this.Text = "Inventory";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form1_KeyPress);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -528,9 +490,6 @@
         private System.Windows.Forms.TextBox CodeBox;
         private System.Windows.Forms.Button CodeButt;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ListView exploreView;
-        private System.Windows.Forms.ColumnHeader name;
-        private System.Windows.Forms.ColumnHeader Place;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label CodeLabel;
@@ -541,8 +500,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescBox;
         private System.Windows.Forms.Button AddButt;
-        private System.Windows.Forms.ColumnHeader Available;
-        private System.Windows.Forms.ColumnHeader Code_Field;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.CheckBox CheckInBox;
         private System.Windows.Forms.TabPage tabPage4;
@@ -561,6 +518,7 @@
         private System.Windows.Forms.Button DeleteButt;
         private System.Windows.Forms.Label behaviorLabel;
         private System.Windows.Forms.TextBox searchBox;
+        private System.Windows.Forms.Button ParentPasteButt;
     }
 }
 
