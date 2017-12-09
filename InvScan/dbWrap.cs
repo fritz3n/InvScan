@@ -54,9 +54,11 @@ namespace InvScan
             {
 
                 LiteCollection<Item> inv = db.GetCollection<Item>("items");
-                List<Item> list = inv.Find(Query.EQ("Code",code)).ToList();
+                List<Item> list = inv.Find(Query.All()).ToList();
 
-                return list;
+                List<Item> list2 = GetWithCode(list, code);
+
+                return list2;
             }
         }
 
@@ -122,6 +124,29 @@ namespace InvScan
 
             }
         }
+
+        public static List<Item> GetWithCode(List<Item> input, string code, List<Item> progress = null)
+        {
+
+            if(progress == null)
+            {
+                progress = new List<Item>();
+            }
+
+            foreach (Item itm in input)
+            {
+                Console.WriteLine("checking:" + itm.Name);
+                if(itm.Code == code)
+                {
+                    progress.Add(itm);
+                }
+
+                GetWithCode(itm.Children, code, progress);
+            }
+
+            return progress;
+        }
+
 
     }
 }

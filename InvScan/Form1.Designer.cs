@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ParentPasteButt = new System.Windows.Forms.Button();
             this.AddButt = new System.Windows.Forms.Button();
             this.ParentBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -41,8 +42,8 @@
             this.NameBox = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.searchBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.searchBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,17 +52,15 @@
             this.ExpDescBox = new System.Windows.Forms.TextBox();
             this.UpdateButt = new System.Windows.Forms.Button();
             this.DeleteButt = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.CheckInButt = new System.Windows.Forms.Button();
-            this.CheckInBox = new System.Windows.Forms.CheckBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.CheckOutButt = new System.Windows.Forms.Button();
-            this.CheckOutBox = new System.Windows.Forms.CheckBox();
             this.CodeLabel = new System.Windows.Forms.Label();
             this.CodeBox = new System.Windows.Forms.TextBox();
             this.CodeButt = new System.Windows.Forms.Button();
             this.behaviorLabel = new System.Windows.Forms.Label();
-            this.ParentPasteButt = new System.Windows.Forms.Button();
+            this.CheckInBox = new System.Windows.Forms.CheckBox();
+            this.CheckOutBox = new System.Windows.Forms.CheckBox();
+            this.CheckInButt = new System.Windows.Forms.Button();
+            this.CheckOutButt = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -70,7 +69,6 @@
             this.splitContainer1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -81,7 +79,6 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -110,6 +107,16 @@
             this.tabPage1.Size = new System.Drawing.Size(493, 355);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Add";
+            // 
+            // ParentPasteButt
+            // 
+            this.ParentPasteButt.Location = new System.Drawing.Point(7, 128);
+            this.ParentPasteButt.Name = "ParentPasteButt";
+            this.ParentPasteButt.Size = new System.Drawing.Size(99, 23);
+            this.ParentPasteButt.TabIndex = 11;
+            this.ParentPasteButt.Text = "Paste from Code";
+            this.ParentPasteButt.UseVisualStyleBackColor = true;
+            this.ParentPasteButt.Click += new System.EventHandler(this.ParentPasteButt_Click);
             // 
             // AddButt
             // 
@@ -211,18 +218,6 @@
             this.splitContainer1.SplitterDistance = 201;
             this.splitContainer1.TabIndex = 0;
             // 
-            // searchBox
-            // 
-            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.searchBox, 3);
-            this.searchBox.Location = new System.Drawing.Point(3, 3);
-            this.searchBox.Name = "searchBox";
-            this.searchBox.Size = new System.Drawing.Size(481, 20);
-            this.searchBox.TabIndex = 1;
-            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
-            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -252,6 +247,18 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(487, 144);
             this.tableLayoutPanel1.TabIndex = 5;
+            // 
+            // searchBox
+            // 
+            this.searchBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.SetColumnSpan(this.searchBox, 3);
+            this.searchBox.Location = new System.Drawing.Point(3, 3);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(481, 20);
+            this.searchBox.TabIndex = 1;
+            this.searchBox.TextChanged += new System.EventHandler(this.searchBox_TextChanged);
             // 
             // label7
             // 
@@ -330,72 +337,6 @@
             this.DeleteButt.UseVisualStyleBackColor = true;
             this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage3.Controls.Add(this.CheckInButt);
-            this.tabPage3.Controls.Add(this.CheckInBox);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(449, 278);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "CheckIn";
-            // 
-            // CheckInButt
-            // 
-            this.CheckInButt.Location = new System.Drawing.Point(103, 2);
-            this.CheckInButt.Name = "CheckInButt";
-            this.CheckInButt.Size = new System.Drawing.Size(75, 23);
-            this.CheckInButt.TabIndex = 1;
-            this.CheckInButt.Text = "Check In";
-            this.CheckInButt.UseVisualStyleBackColor = true;
-            this.CheckInButt.Click += new System.EventHandler(this.CheckInButt_Click);
-            // 
-            // CheckInBox
-            // 
-            this.CheckInBox.AutoSize = true;
-            this.CheckInBox.Location = new System.Drawing.Point(6, 6);
-            this.CheckInBox.Name = "CheckInBox";
-            this.CheckInBox.Size = new System.Drawing.Size(91, 17);
-            this.CheckInBox.TabIndex = 0;
-            this.CheckInBox.Text = "Auto CheckIn";
-            this.CheckInBox.UseVisualStyleBackColor = true;
-            this.CheckInBox.CheckedChanged += new System.EventHandler(this.CheckInBox_CheckedChanged);
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage4.Controls.Add(this.CheckOutButt);
-            this.tabPage4.Controls.Add(this.CheckOutBox);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(449, 278);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "CheckOut";
-            // 
-            // CheckOutButt
-            // 
-            this.CheckOutButt.Location = new System.Drawing.Point(111, 2);
-            this.CheckOutButt.Name = "CheckOutButt";
-            this.CheckOutButt.Size = new System.Drawing.Size(75, 23);
-            this.CheckOutButt.TabIndex = 1;
-            this.CheckOutButt.Text = "Check Out";
-            this.CheckOutButt.UseVisualStyleBackColor = true;
-            this.CheckOutButt.Click += new System.EventHandler(this.CheckOutButt_Click);
-            // 
-            // CheckOutBox
-            // 
-            this.CheckOutBox.AutoSize = true;
-            this.CheckOutBox.Location = new System.Drawing.Point(6, 6);
-            this.CheckOutBox.Name = "CheckOutBox";
-            this.CheckOutBox.Size = new System.Drawing.Size(99, 17);
-            this.CheckOutBox.TabIndex = 0;
-            this.CheckOutBox.Text = "Auto CheckOut";
-            this.CheckOutBox.UseVisualStyleBackColor = true;
-            this.CheckOutBox.CheckedChanged += new System.EventHandler(this.CheckOutBox_CheckedChanged);
-            // 
             // CodeLabel
             // 
             this.CodeLabel.AutoSize = true;
@@ -438,15 +379,61 @@
             this.behaviorLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.behaviorLabel.Click += new System.EventHandler(this.behaviorLabel_Click);
             // 
-            // ParentPasteButt
+            // CheckInBox
             // 
-            this.ParentPasteButt.Location = new System.Drawing.Point(7, 128);
-            this.ParentPasteButt.Name = "ParentPasteButt";
-            this.ParentPasteButt.Size = new System.Drawing.Size(99, 23);
-            this.ParentPasteButt.TabIndex = 11;
-            this.ParentPasteButt.Text = "Paste from Code";
-            this.ParentPasteButt.UseVisualStyleBackColor = true;
-            this.ParentPasteButt.Click += new System.EventHandler(this.ParentPasteButt_Click);
+            this.CheckInBox.AutoSize = true;
+            this.CheckInBox.Location = new System.Drawing.Point(6, 6);
+            this.CheckInBox.Name = "CheckInBox";
+            this.CheckInBox.Size = new System.Drawing.Size(91, 17);
+            this.CheckInBox.TabIndex = 0;
+            this.CheckInBox.Text = "Auto CheckIn";
+            this.CheckInBox.UseVisualStyleBackColor = true;
+            this.CheckInBox.CheckedChanged += new System.EventHandler(this.CheckInBox_CheckedChanged);
+            // 
+            // CheckOutBox
+            // 
+            this.CheckOutBox.AutoSize = true;
+            this.CheckOutBox.Location = new System.Drawing.Point(6, 31);
+            this.CheckOutBox.Name = "CheckOutBox";
+            this.CheckOutBox.Size = new System.Drawing.Size(99, 17);
+            this.CheckOutBox.TabIndex = 0;
+            this.CheckOutBox.Text = "Auto CheckOut";
+            this.CheckOutBox.UseVisualStyleBackColor = true;
+            this.CheckOutBox.CheckedChanged += new System.EventHandler(this.CheckOutBox_CheckedChanged);
+            // 
+            // CheckInButt
+            // 
+            this.CheckInButt.Location = new System.Drawing.Point(111, 2);
+            this.CheckInButt.Name = "CheckInButt";
+            this.CheckInButt.Size = new System.Drawing.Size(75, 23);
+            this.CheckInButt.TabIndex = 1;
+            this.CheckInButt.Text = "Check In";
+            this.CheckInButt.UseVisualStyleBackColor = true;
+            this.CheckInButt.Click += new System.EventHandler(this.CheckInButt_Click);
+            // 
+            // CheckOutButt
+            // 
+            this.CheckOutButt.Location = new System.Drawing.Point(111, 27);
+            this.CheckOutButt.Name = "CheckOutButt";
+            this.CheckOutButt.Size = new System.Drawing.Size(75, 23);
+            this.CheckOutButt.TabIndex = 1;
+            this.CheckOutButt.Text = "Check Out";
+            this.CheckOutButt.UseVisualStyleBackColor = true;
+            this.CheckOutButt.Click += new System.EventHandler(this.CheckOutButt_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.CheckOutButt);
+            this.tabPage3.Controls.Add(this.CheckInButt);
+            this.tabPage3.Controls.Add(this.CheckOutBox);
+            this.tabPage3.Controls.Add(this.CheckInBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(493, 355);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "CheckIn/Out";
             // 
             // Form1
             // 
@@ -476,8 +463,6 @@
             this.tableLayoutPanel1.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -500,12 +485,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox DescBox;
         private System.Windows.Forms.Button AddButt;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.CheckBox CheckInBox;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.CheckBox CheckOutBox;
-        private System.Windows.Forms.Button CheckInButt;
-        private System.Windows.Forms.Button CheckOutButt;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
@@ -519,6 +498,11 @@
         private System.Windows.Forms.Label behaviorLabel;
         private System.Windows.Forms.TextBox searchBox;
         private System.Windows.Forms.Button ParentPasteButt;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button CheckOutButt;
+        private System.Windows.Forms.Button CheckInButt;
+        private System.Windows.Forms.CheckBox CheckOutBox;
+        private System.Windows.Forms.CheckBox CheckInBox;
     }
 }
 

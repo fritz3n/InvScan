@@ -10,7 +10,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using BrightIdeasSoftware;
-
+using System.Threading;
 
 namespace InvScan
 {
@@ -76,12 +76,80 @@ namespace InvScan
             this.treeListView.Roots = data;
 
             treeListView.SelectedIndexChanged += TreeListView_SelectedIndexChanged;
+            treeListView.PreviewKeyDown += TreeListView_PreviewKeyDown;
+            treeListView.KeyPress += TreeListView_KeyPress;
+
+           // treeListView.
 
             treeListView.FullRowSelect = true;
             treeListView.HideSelection = false;
 
             UpdateExplorer();
         }
+
+        private void TreeListView_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (captureScan && !ctrlDown)
+            {
+                CodeBox.Text += e.KeyChar.ToString().ToUpper();
+
+                e.Handled = true;
+            }
+        }
+
+        private void TreeListView_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                ctrlDown = true;
+
+                //Console.WriteLine("control");
+
+            }
+
+            if (ctrlDown && e.KeyCode == Keys.B)
+            {
+                captureScan = true;
+
+                //Console.WriteLine("capturin");
+
+                CodeBox.Text = "";
+
+                e.IsInputKey = false;
+
+                //e.Handled = true;
+                //e.SuppressKeyPress = true;
+            }
+
+
+            if (ctrlDown && e.KeyCode == Keys.C)
+            {
+                captureScan = false;
+
+                //Console.WriteLine("not capturin");
+
+                HandleCode();
+
+                e.IsInputKey = false;
+
+                //e.Handled = true;
+                //e.SuppressKeyPress = true;
+
+            }
+        }
+
+        private void TreeListView_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.ControlKey)
+            {
+                //Console.WriteLine("not control");
+
+                ctrlDown = false;
+
+            }
+        }
+
+
 
         private void TreeListView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -118,16 +186,6 @@ namespace InvScan
 
         }
 
-        private void TreeListView_CellClick(object sender, CellClickEventArgs e)
-        {
-            if (e.Item != null)
-            {
-                Item itm = (Item)e.Item.RowObject;
-
-                treeListView.Refresh();
-            }
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             HandleCode();
@@ -139,25 +197,31 @@ namespace InvScan
             CodeLabel.Text = Code;
             CodeBox.Text = "";
 
+            Console.WriteLine("Got:" + Code);
 
             if (CheckInBox.Checked)
             {
+                Console.WriteLine("CheckIn:" + Code);
+
                 List<Item> list = DbWrap.GetList(Code);
 
                 foreach (Item itm in list)
                 {
-                    itm.Available = true;
-                    Console.WriteLine(itm.Id);
+                    itm.SetAvailable(true);
+                    Console.WriteLine("In:" + itm.Id);
                     DbWrap.Update(itm);
                 }
             }
             else if (CheckOutBox.Checked)
             {
+                Console.WriteLine("CheckOut:" + Code);
+
                 List<Item> list = DbWrap.GetList(Code);
 
                 foreach (Item itm in list)
                 {
-                    itm.Available = false;
+                    itm.SetAvailable(false);
+                    Console.WriteLine("Out:" + itm.Id);
                     DbWrap.Update(itm);
                 }
             }
@@ -179,17 +243,19 @@ namespace InvScan
                 Name = NameBox.Text,
                 Place = PlaceBox.Text,
                 Description = DescBox.Text,
-                Code = Code,
-                Available = true
+                Code = Code
             };
-            
+
+            itm.SetAvailable(true);
+
             if (ParentBox.Text != "")
             {
                 List<Item> list = DbWrap.GetList(ParentBox.Text);
                 if (list.Count > 0)
                 {
-                    list[0].AddChild(itm);
-                    DbWrap.Update(list[0]);
+                    list.First().AddChild(itm);
+                    DbWrap.Update(list.First());
+                    
                 }
                 else
                 {
@@ -252,16 +318,19 @@ namespace InvScan
 
         private void UpdateExplorer()
         {
-           
+            Thread.Sleep(100);
+            
             List<Item> list = DbWrap.GetList();
 
             data = list;
 
             this.treeListView.Roots = data;
 
-            treeListView.Refresh();
+            treeListView.RebuildAll(true);
 
+            //treeListView.Refresh();
 
+            
         }
 
         private void CodeBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -286,7 +355,7 @@ namespace InvScan
 
             foreach (Item itm in list)
             {
-                itm.Available = true;
+                itm.SetAvailable(true);
                 Console.WriteLine(itm.Id);
                 DbWrap.Update(itm);
             }
@@ -298,7 +367,7 @@ namespace InvScan
 
             foreach (Item itm in list)
             {
-                itm.Available = false;
+                itm.SetAvailable(false);
                 DbWrap.Update(itm);
             }
         }
@@ -343,7 +412,7 @@ namespace InvScan
             {
                 ctrlDown = true;
 
-                Console.WriteLine("control");
+                //Console.WriteLine("control");
 
             }
 
@@ -351,7 +420,7 @@ namespace InvScan
             {
                 captureScan = true;
 
-                Console.WriteLine("capturin");
+                //Console.WriteLine("capturin");
 
                 CodeBox.Text = "";
                 e.Handled = true;
@@ -363,7 +432,7 @@ namespace InvScan
             {
                 captureScan = false;
 
-                Console.WriteLine("not capturin");
+                //Console.WriteLine("not capturin");
 
                 HandleCode();
                 e.Handled = true;
@@ -378,7 +447,7 @@ namespace InvScan
             
             if (e.KeyCode == Keys.ControlKey)
             {
-                Console.WriteLine("not control");
+                //Console.WriteLine("not control");
 
                 ctrlDown = false;
 

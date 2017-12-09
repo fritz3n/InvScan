@@ -15,7 +15,7 @@ namespace InvScan
         public string Description { get; set; }
         public string Place { get; set; }
         public string Parent { get; set; }
-        public bool Available { get; set; }
+        public bool Available { get; private set; }
         public bool IsChild { get; set; } = false;
         public List<Item> Children { get; private set; } = new List<Item>();
 
@@ -35,6 +35,20 @@ namespace InvScan
                     Children.Add(itm);
                 }
             }
+        }
+
+        public void SetAvailable(bool avb)
+        {
+            Available = avb;
+            foreach (Item itm in Children)
+            {
+                itm.SetAvailable(avb);
+            }
+        }
+
+        public Item GetParent()
+        {
+            return DbWrap.GetItem(Parent);
         }
 
         public void RemoveChild(Item itm)
