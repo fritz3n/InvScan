@@ -61,10 +61,11 @@ namespace InvScan
             col1.AspectGetter = x => (x as Item).Place;
 
             var col2 = new OLVColumn("Available", "Available");
-            col2.AspectGetter = x => (x as Item).Available;
+            col2.AspectGetter = x => (x as Item).GetAvailableText();
 
             var col3 = new OLVColumn("Code", "Code");
             col3.AspectGetter = x => (x as Item).Code;
+            
 
             // add the columns to the tree
             this.treeListView.Columns.Add(nameCol);
@@ -74,10 +75,12 @@ namespace InvScan
 
             // set the tree roots
             this.treeListView.Roots = data;
-
+            
             treeListView.SelectedIndexChanged += TreeListView_SelectedIndexChanged;
             treeListView.PreviewKeyDown += TreeListView_PreviewKeyDown;
             treeListView.KeyPress += TreeListView_KeyPress;
+            treeListView.UseCellFormatEvents = true;
+            treeListView.FormatCell += TreeListView_FormatCell;
 
            // treeListView.
 
@@ -85,6 +88,15 @@ namespace InvScan
             treeListView.HideSelection = false;
 
             UpdateExplorer();
+        }
+
+        private void TreeListView_FormatCell(object sender, FormatCellEventArgs e)
+        {
+            //Item itm = (Item)e.Model;
+            if (e.ColumnIndex == 2 && (string)e.CellValue == "No")
+            {
+                e.SubItem.BackColor = Color.Pink;
+            }
         }
 
         private void TreeListView_KeyPress(object sender, KeyPressEventArgs e)
@@ -401,6 +413,14 @@ namespace InvScan
             DbWrap.Update(itm);
 
             UpdateExplorer();
+
+            UpdateButt.Enabled = false;
+            
+            DeleteButt.Enabled = false;
+
+            ExpNameBox.Text = "";
+            ExpPlaceBox.Text = "";
+            ExpDescBox.Text = "";
 
         }
 

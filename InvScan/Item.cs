@@ -46,6 +46,11 @@ namespace InvScan
             }
         }
 
+        public string GetAvailableText()
+        {
+            return (Available ? "Yes" : "No");
+        }
+
         public Item GetParent()
         {
             return DbWrap.GetItem(Parent);
