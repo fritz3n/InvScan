@@ -12,12 +12,12 @@ namespace InvScan
         {
             using (var db = new LiteDatabase(@"db.db"))
             {
-
                 LiteCollection<Item> inv = db.GetCollection<Item>("items");
                 
                 // Insert new customer document (Id will be auto-incremented)
                 inv.Insert(itm);
-                
+
+                Log("New Item", LogItem.LogType.Insert, itm);
             }
         }
 
@@ -99,6 +99,7 @@ namespace InvScan
                 LiteCollection<Item> inv = db.GetCollection<Item>("items");
                 
                 inv.Update(itm);
+                Log("New Item", LogItem.LogType.Update, itm);
 
             }
             
@@ -121,7 +122,7 @@ namespace InvScan
                 LiteCollection<Item> inv = db.GetCollection<Item>("items");
 
                 inv.Delete(itm.Id);
-
+                Log("New Item", LogItem.LogType.Delete, itm);
             }
         }
 
@@ -147,6 +148,16 @@ namespace InvScan
             return progress;
         }
 
+        public static void Log(string mes = "x", LogItem.LogType Typ = LogItem.LogType.Null, object obj = null)
+        {
+            using (var db = new LiteDatabase(@"db.db"))
+            {
+                LogItem itm = new LogItem(mes, Typ, obj);
 
+                LiteCollection<LogItem> log = db.GetCollection<LogItem>("log");
+                
+                log.Insert(itm);
+            }
+        }
     }
 }

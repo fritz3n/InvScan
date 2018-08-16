@@ -100,5 +100,23 @@ namespace InvScan
 
     }
 
+    class LogItem
+    {
+        public int Id { get; set; }
+        public DateTime Time { get; set; }
+        public string Message { get; set; }
+        public LogType Type { get; set; }
+        public object Value { get; set; }
+
+        public enum LogType {Null,Insert,Update,Delete};
+
+        public LogItem(string mes = "x", LogType Typ = LogType.Null, object obj = null)
+        {
+            Time = DateTime.Now;
+            Value = obj;
+            Type = Typ;
+        }
+
+    }
 
 }
